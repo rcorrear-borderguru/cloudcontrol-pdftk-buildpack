@@ -32,6 +32,9 @@ class Pdftk < BaseCustom
     %x{ cp #{path}/lib/libgcj.so.12 #{build_path}/lib/libgcj.so.12 } 
     %x{ cp #{path}/lib/libgcj.so.12 #{build_path}/bin/libgcj.so.12 } 
     %x{ cp #{path}/lib/libgcj.so.12 #{build_path}/bin/lib/libgcj.so.12 } 
+
+    %x{ export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:#{build_path}/lib" }
+    %x{ echo $LD_LIBRARY_PATH }
     write_stdout "complete compiling #{name}"
   end
 
