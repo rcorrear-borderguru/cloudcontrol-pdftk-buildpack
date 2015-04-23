@@ -13,6 +13,14 @@ class Pdftk < BaseCustom
     #"https://github.com/jornwanke-liquidlabs/cloudcontrol-pdftk-buildpack/blob/master/pdftk.tar.gz?raw=true"
   end
 
+  def shell_script_url
+    "https://github.com/jornwanke-liquidlabs/cloudcontrol-pdftk-buildpack/blob/master/libpath.sh?raw=true"
+  end
+
+  def profile
+    "${HOME}/.profile.d"
+  end
+
   def used?
     File.exist?("#{build_path}/bin/pdftk") && File.exist?("#{build_path}/bin/lib/libgcj.so.12")
   end
@@ -33,8 +41,10 @@ class Pdftk < BaseCustom
     %x{ cp #{path}/lib/libgcj.so.12 #{build_path}/bin/libgcj.so.12 } 
     %x{ cp #{path}/lib/libgcj.so.12 #{build_path}/bin/lib/libgcj.so.12 } 
 
-    %x{ export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:#{build_path}/lib" }
-    %x{ echo $LD_LIBRARY_PATH 1>&2 }
+    write_stdout "profile #{profile}"
+    %x{ echo #{profile} 1>&2 }
+    %x{ mkdir -p #{profile} && curl --silent #{shell_script_url} -o - > #{profile}/pdftk.sh }
+    
     write_stdout "complete compiling #{name}"
   end
 
