@@ -1,7 +1,8 @@
 class Pdftk < BaseCustom
 
   def path
-    "#{build_path}/vendor/#{name}"
+    #"#{build_path}/vendor/#{name}"
+    "#{build_path}"
   end
 
   def name
@@ -9,7 +10,8 @@ class Pdftk < BaseCustom
   end
 
   def source_url
-    "https://raw.githubusercontent.com/SirRawlins/pdftk-source/master/pdftk.tar.gz"
+    #"https://raw.githubusercontent.com/SirRawlins/pdftk-source/master/pdftk.tar.gz"
+    https://github.com/jornwanke-liquidlabs/cloudcontrol-pdftk-buildpack/blob/master/pdftk.tar.gz"
   end
 
   def used?
@@ -17,7 +19,7 @@ class Pdftk < BaseCustom
   end
 
   def compile
-    write_stdout "compiling #{name}"
+    write_stdout "compiling #{name} using #{path}"
     #download the source and extract
     %x{ mkdir -p #{path} && curl --silent #{source_url} -o - | tar -xz -C #{path} -f - } 
     write_stdout "complete compiling #{name}"
