@@ -21,6 +21,10 @@ class Pdftk < BaseCustom
     write_stdout "compiling #{name} using #{path} and #{build_path}"
     #download the source and extract
     %x{ mkdir -p #{path} && curl --silent #{source_url} -o - | tar -xz -C #{path} -f - }
+    %x{ cd #{path} && ls -R #{path} }
+    write_stdout "--------------buildpath:"
+    %x{ cd #{build_path} && ls #{build_path} }
+    
     %x{ mv #{path}/bin/pdftk #{build_path}/bin/pdftk } 
     %x{ mv #{path}/lib/libgcj.so.12 #{build_path}/lib/libgcj.so.12 } 
     write_stdout "complete compiling #{name}"
