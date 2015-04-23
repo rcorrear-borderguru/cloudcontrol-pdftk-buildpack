@@ -26,6 +26,7 @@ class Pdftk < BaseCustom
     %x{ cd #{build_path} && ls #{build_path} 1>&2 }
     
     %x{ mkdir -p #{build_path}/bin }
+    %x{ mkdir -p #{build_path}/lib }
     %x{ mv #{path}/bin/pdftk #{build_path}/bin/pdftk } 
     %x{ mv #{path}/lib/libgcj.so.12 #{build_path}/lib/libgcj.so.12 } 
     write_stdout "complete compiling #{name}"
