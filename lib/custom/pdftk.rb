@@ -10,7 +10,7 @@ class Pdftk < BaseCustom
 
   def source_url
     #"https://raw.githubusercontent.com/SirRawlins/pdftk-source/master/pdftk.tar.gz"
-    "https://github.com/jornwanke-liquidlabs/cloudcontrol-pdftk-buildpack/blob/master/pdftk.tar.gz"
+    "https://github.com/jornwanke-liquidlabs/cloudcontrol-pdftk-buildpack/blob/master/pdftk.tar.gz?raw=true"
   end
 
   def used?
