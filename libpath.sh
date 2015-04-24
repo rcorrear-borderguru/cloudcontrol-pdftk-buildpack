@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-export /app/vendor/pdftk/lib
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/app/vendor/pdftk/lib:"
