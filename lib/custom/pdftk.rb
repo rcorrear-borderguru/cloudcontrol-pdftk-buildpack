@@ -20,6 +20,10 @@ class Pdftk < BaseCustom
   def profile
     "${HOME}/.profile.d"
   end
+  
+  def build_path_profile
+    "#{build_path}/.profile.d"
+  end
 
   def used?
     File.exist?("#{build_path}/bin/pdftk") && File.exist?("#{build_path}/bin/lib/libgcj.so.12")
@@ -36,13 +40,15 @@ class Pdftk < BaseCustom
     %x{ mkdir -p #{build_path}/bin }
     %x{ mkdir -p #{build_path}/bin/lib }
     %x{ mkdir -p #{build_path}/lib }
-    %x{ mv #{path}/bin/pdftk #{build_path}/bin/pdftk } 
+    %x{ cp #{path}/bin/pdftk #{build_path}/bin/pdftk } 
     %x{ cp #{path}/lib/libgcj.so.12 #{build_path}/lib/libgcj.so.12 } 
     %x{ cp #{path}/lib/libgcj.so.12 #{build_path}/bin/libgcj.so.12 } 
     %x{ cp #{path}/lib/libgcj.so.12 #{build_path}/bin/lib/libgcj.so.12 } 
 
     write_stdout "profile #{profile}"
-    %x{ mkdir -p #{profile} && curl --silent -L #{shell_script_url} -o - > #{profile}/pdftk.sh }
+    %x{ mkdir -p #{profile} && curl -L #{shell_script_url} -o - > #{profile}/pdftk.sh }
+    %x{ mkdir -p #{build_path_profile} }
+    %x{ cp #{profile}/pdftk.sh #{build_path_profile} }
     %x{ cat #{profile}/pdftk.sh 1>&2 }
     
     write_stdout "complete compiling #{name}"
