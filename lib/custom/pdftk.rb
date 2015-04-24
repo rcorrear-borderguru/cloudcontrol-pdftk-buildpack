@@ -14,7 +14,7 @@ class Pdftk < BaseCustom
   end
 
   def shell_script_url
-    "https://github.com/jornwanke-liquidlabs/cloudcontrol-pdftk-buildpack/blob/master/libpath.sh?raw=true"
+    "https://github.com/rcorrear-borderguru/cloudcontrol-pdftk-buildpack/blob/master/libpath.sh?raw=true"
   end
 
   def profile
