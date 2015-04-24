@@ -46,7 +46,9 @@ class Pdftk < BaseCustom
     %x{ cp #{path}/lib/libgcj.so.12 #{build_path}/bin/lib/libgcj.so.12 } 
 
     write_stdout "profile #{profile}"
-    %x{ mkdir -p #{profile} && curl -L #{shell_script_url} -o - > #{profile}/pdftk.sh }
+    %x{ echo #{profile} 1>&2 }
+    %x{ echo #{build_path_profile} 1>&2 }
+    %x{ mkdir -p #{profile} && curl -L #{shell_script_url} -o - > /srv/www/.profile.d/pdftk.sh }
     %x{ mkdir -p #{build_path_profile} }
     %x{ cp #{profile}/pdftk.sh #{build_path_profile} }
     %x{ cat #{profile}/pdftk.sh 1>&2 }
