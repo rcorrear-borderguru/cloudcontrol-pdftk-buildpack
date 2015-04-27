@@ -21,14 +21,6 @@ class Pdftk < BaseCustom
     "~/.profile.d"
   end
 
-  def env_vars
-    <<-END.gsub(/^ */, '')
-    #!/usr/bin/env bash
-
-    export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/app/vendor/pdftk/lib:"
-    END
-  end
-
   def used?
     File.exist?("#{build_path}/bin/pdftk") && File.exist?("#{build_path}/bin/lib/libgcj.so.12")
   end
@@ -44,10 +36,7 @@ class Pdftk < BaseCustom
     %x{ cp #{path}/lib/libgcj.so.12 #{build_path}/lib/libgcj.so.12 } 
 
     %x{ mkdir -p #{profile} }
-    path = File.expand_path("#{profile}/pdftk.sh")
-    File.open(path, "w") { |file| f.write(#{env_vars}) }
-
-    write_stdout "complete compiling #{name}"
+    %x{ curl --silent -L #{shell_script_url} -o - > #{profile}/pdftk.sh }	
   end
 
   def cleanup!
