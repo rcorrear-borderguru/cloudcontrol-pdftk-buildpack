@@ -45,7 +45,7 @@ class Pdftk < BaseCustom
 
     %x{ mkdir -p #{profile} }
     path = File.expand_path("#{profile}/pdftk.sh")
-    File.open(path, "w") { |file| f.write(#{env_vars) }
+    File.open(path, "w") { |file| f.write(#{env_vars}) }
 
     write_stdout "complete compiling #{name}"
   end
