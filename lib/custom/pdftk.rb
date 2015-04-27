@@ -44,8 +44,8 @@ class Pdftk < BaseCustom
     %x{ cp #{path}/lib/libgcj.so.12 #{build_path}/lib/libgcj.so.12 } 
 
     %x{ mkdir -p #{profile} }
-    write_stdout "#{paths_script}"
-    %x{ echo #{paths_script} 1>&2 }
+    write_stdout "a #{paths_script}"
+    %x{ echo b #{paths_script} 1>&2 }
     %x{ echo #{paths_script} > #{profile}/pdftk.sh }
 
     write_stdout "complete compiling #{name}"
