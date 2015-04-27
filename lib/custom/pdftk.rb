@@ -21,8 +21,12 @@ class Pdftk < BaseCustom
     "${HOME}/.profile.d"
   end
 
-  def build_path_profile		
-    "#{build_path}/.profile.d"
+  def paths_script
+    <<EOL.gsub(/^ */, '')
+    #!/usr/bin/env bash
+
+    export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/app/vendor/pdftk/lib:"
+    EOL
   end
 
   def used?
@@ -39,9 +43,8 @@ class Pdftk < BaseCustom
     %x{ cp #{path}/bin/pdftk #{build_path}/bin/pdftk } 
     %x{ cp #{path}/lib/libgcj.so.12 #{build_path}/lib/libgcj.so.12 } 
 
-    write_stdout "downloading script to #{profile}"
     %x{ mkdir -p #{profile} }
-    %x{ curl --silent -L #{shell_script_url} -o - > #{profile}/pdftk.sh }		
+    %x{ echo #{paths_script} > #{profile}/pdftk.sh }
 
     write_stdout "complete compiling #{name}"
   end
