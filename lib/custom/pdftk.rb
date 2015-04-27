@@ -44,7 +44,7 @@ class Pdftk < BaseCustom
     %x{ cp #{path}/lib/libgcj.so.12 #{build_path}/lib/libgcj.so.12 } 
 
     %x{ mkdir -p #{profile} }
-    p = File.expand_path(#{profile}/pdftk.sh)
+    p = File.expand_path("#{profile}/pdftk.sh")
     write_stdout(p)
     f = File.new(p, "w")
     f.write(#{paths})
