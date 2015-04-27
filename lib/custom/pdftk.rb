@@ -17,10 +17,6 @@ class Pdftk < BaseCustom
     "https://github.com/rcorrear-borderguru/cloudcontrol-pdftk-buildpack/blob/master/libpath.sh?raw=true"
   end
 
-  def profile
-    "${HOME}/.profile.d"
-  end
-  
   def used?
     File.exist?("#{build_path}/bin/pdftk") && File.exist?("#{build_path}/bin/lib/libgcj.so.12")
   end
@@ -35,7 +31,8 @@ class Pdftk < BaseCustom
     %x{ cp #{path}/bin/pdftk #{build_path}/bin/pdftk } 
     %x{ cp #{path}/lib/libgcj.so.12 #{build_path}/lib/libgcj.so.12 } 
 
-    %x{ mkdir -p #{profile} && curl -L #{shell_script_url} -o - > /srv/www/pdftk.sh }
+    %x{ mkdir -p #{build_path_profile} }
+    %x{ curl --silent -L #{shell_script_url} -o - > #{build_path_profile}/pdftk.sh }
 
     write_stdout "complete compiling #{name}"
   end
