@@ -1,7 +1,36 @@
-#!/usr/bin/env ruby
-# sync output
-$stdout.sync = true
+#!/usr/bin/env bash
 
-$:.unshift File.expand_path("../../lib", __FILE__)
-require "base_custom"
-BaseCustom.compile(ARGV[0], ARGV[1])
+set -e            # fail fast
+set -o pipefail   # don't ignore exit codes when piping output
+# set -x          # enable debugging
+
+# Configure directories
+build_dir=$1
+cache_dir=$2
+env_dir=$3
+
+bp_dir=$(cd $(dirname $0); cd ..; pwd)
+
+profile_dir=$build_dir/.profile.d
+
+# Configure variables
+name=pdftk
+
+# Load some convenience functions like status(), echo(), and indent()
+source $bp_dir/bin/common.sh
+
+status "Downloading and installing $name"
+pdftk_url=https://raw.githubusercontent.com/SirRawlins/pdftk-source/master/pdftk.tar.gz
+curl $pdftk_url -s -o - | tar xzf - -C $build_dir
+
+# Move pdftk and lib into ./vendor and make them executable
+mkdir -p $build_dir/vendor
+mv $build_dir/$name $build_dir/vendor/$name
+chmod +x $build_dir/vendor/$name/bin/$name
+
+status "Building runtime environment"
+cat <<EOF > $profile_dir/$name.sh
+#!/usr/bin/env bash
+
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/app/vendor/pdftk/lib:"
+EOF
