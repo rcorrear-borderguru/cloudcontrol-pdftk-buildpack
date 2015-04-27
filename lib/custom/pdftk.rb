@@ -18,7 +18,7 @@ class Pdftk < BaseCustom
   end
 
   def profile
-    "${HOME}/.profile.d"
+    "~/.profile.d"
   end
 
   def paths_script
@@ -44,10 +44,9 @@ class Pdftk < BaseCustom
     %x{ cp #{path}/lib/libgcj.so.12 #{build_path}/lib/libgcj.so.12 } 
 
     %x{ mkdir -p #{profile} }
-    write_stdout "a #{paths_script}"
-    %x{ echo b #{paths_script} 1>&2 }
-    %x{ echo b #{paths_script} }
-    %x{ echo #{paths_script} > #{profile}/pdftk.sh }
+    f = File.new(File.expand_path(#{profile}/pdftk.sh), "w")
+    f.write(#paths_script)
+    f.close
 
     write_stdout "complete compiling #{name}"
   end
