@@ -18,7 +18,7 @@ class Pdftk < BaseCustom
   end
 
   def profile
-    File.expand("~/.profile.d")
+    File.expand_path("~/.profile.d")
   end
 
   def used?
