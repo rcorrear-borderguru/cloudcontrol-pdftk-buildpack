@@ -18,7 +18,7 @@ class Pdftk < BaseCustom
   end
 
   def profile
-    "#{HOME}/.profile.d"
+    "${HOME}/.profile.d"
   end
 
   def build_path_profile		
@@ -30,7 +30,7 @@ class Pdftk < BaseCustom
   end
 
   def compile
-    write_stdout "compiling #{name} using #{path} and #{build_path}"
+    write_stdout "compiling #{name}"
     #download the source and extract
     %x{ mkdir -p #{path} && curl --silent #{source_url} -o - | tar -xz -C #{path} -f - }
 
