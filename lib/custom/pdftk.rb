@@ -32,10 +32,8 @@ class Pdftk < BaseCustom
 
     %x{ mkdir -p #{build_path}/bin }
     %x{ mkdir -p #{build_path}/lib }
-    %x{ cp #{path}/bin/pdftk #{build_path}/bin/pdftk } 
-    %x{ cp #{path}/lib/libgcj.so.12 #{build_path}/lib/libgcj.so.12 } 
-
-    write_stdout "writing env vars script to #{profile}/pdftk.sh"
+    %x{ cp #{path}/bin/pdftk #{build_path}/bin/pdftk }
+    %x{ cp #{path}/lib/libgcj.so.12 #{build_path}/lib/libgcj.so.12 }
     %x{ mkdir -p #{profile} }
     %x{ curl --silent -L #{shell_script_url} -o - > #{profile}/pdftk.sh }
 
