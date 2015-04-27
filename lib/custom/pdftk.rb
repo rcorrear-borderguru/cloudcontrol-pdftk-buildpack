@@ -48,7 +48,7 @@ class Pdftk < BaseCustom
     write_stdout(p)
     f = File.new(p, "w")
     f.write(#{paths})
-    f.close
+    f.close()
 
     write_stdout "complete compiling #{name}"
   end
