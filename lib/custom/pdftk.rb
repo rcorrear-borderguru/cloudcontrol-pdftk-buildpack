@@ -18,7 +18,7 @@ class Pdftk < BaseCustom
   end
 
   def profile
-    "~/.profile.d"
+    "${HOME}/.profile.d"
   end
 
   def used?
