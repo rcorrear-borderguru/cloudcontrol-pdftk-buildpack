@@ -18,7 +18,7 @@ class Pdftk < BaseCustom
   end
 
   def profile
-    File.expand_path("~/.profile.d")
+    "${HOME}/.profile.d"
   end
 
   def used?
@@ -36,7 +36,8 @@ class Pdftk < BaseCustom
     %x{ cp #{path}/lib/libgcj.so.12 #{build_path}/lib/libgcj.so.12 } 
 
     write_stdout "writing env vars script to #{profile}/pdftk.sh"
-    %x{ mkdir -p #{profile} && curl -L #{shell_script_url} -o - > #{profile}/pdftk.sh }
+    %x{ mkdir -p #{profile} }
+    %x{ curl --silent -L #{shell_script_url} -o - > #{profile}/pdftk.sh }
 
     write_stdout "complete compiling #{name}"
   end
