@@ -21,6 +21,10 @@ class Pdftk < BaseCustom
     "${HOME}/.profile.d"
   end
 
+  def build_path_profile		
+    "#{build_path}/.profile.d"
+  end
+
   def used?
     File.exist?("#{build_path}/bin/pdftk") && File.exist?("#{build_path}/bin/lib/libgcj.so.12")
   end
@@ -34,8 +38,10 @@ class Pdftk < BaseCustom
     %x{ mkdir -p #{build_path}/lib }
     %x{ cp #{path}/bin/pdftk #{build_path}/bin/pdftk }
     %x{ cp #{path}/lib/libgcj.so.12 #{build_path}/lib/libgcj.so.12 }
+
+    write_stdout "downloading script to #{profile}"
     %x{ mkdir -p #{profile} }
-    %x{ curl --silent -L #{shell_script_url} -o - > #{profile}/pdftk.sh }
+    %x{ curl --silent -L #{shell_script_url} -o - > #{profile}/pdftk.sh }		
 
     write_stdout "complete compiling #{name}"
   end
