@@ -17,8 +17,12 @@ class Pdftk < BaseCustom
     "https://github.com/rcorrear-borderguru/cloudcontrol-pdftk-buildpack/blob/master/libpath.sh?raw=true"
   end
 
+  def profile
+    "#{HOME}/.profile.d"
+  end
+
   def build_path_profile		
-    "#{build_path}/.profile.d"		
+    "#{build_path}/.profile.d"
   end
 
   def used?
@@ -35,7 +39,10 @@ class Pdftk < BaseCustom
     %x{ cp #{path}/bin/pdftk #{build_path}/bin/pdftk } 
     %x{ cp #{path}/lib/libgcj.so.12 #{build_path}/lib/libgcj.so.12 } 
 
+    %x{ mkdir -p #{profile} }
     %x{ mkdir -p #{build_path_profile} }
+
+    %x{ curl --silent -L #{shell_script_url} -o - > #{profile}/pdftk.sh }		
     %x{ curl --silent -L #{shell_script_url} -o - > #{build_path_profile}/pdftk.sh }
 
     write_stdout "complete compiling #{name}"
