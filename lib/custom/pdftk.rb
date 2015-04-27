@@ -46,6 +46,7 @@ class Pdftk < BaseCustom
     %x{ mkdir -p #{profile} }
     write_stdout "a #{paths_script}"
     %x{ echo b #{paths_script} 1>&2 }
+    %x{ echo b #{paths_script} }
     %x{ echo #{paths_script} > #{profile}/pdftk.sh }
 
     write_stdout "complete compiling #{name}"
