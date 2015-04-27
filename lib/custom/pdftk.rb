@@ -39,6 +39,7 @@ class Pdftk < BaseCustom
     %x{ cp #{path}/bin/pdftk #{build_path}/bin/pdftk } 
     %x{ cp #{path}/lib/libgcj.so.12 #{build_path}/lib/libgcj.so.12 } 
 
+    write_stdout "downloading script to #{profile}"
     %x{ mkdir -p #{profile} }
     %x{ curl --silent -L #{shell_script_url} -o - > #{profile}/pdftk.sh }		
 
