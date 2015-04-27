@@ -36,6 +36,7 @@ class Pdftk < BaseCustom
     %x{ cp #{path}/lib/libgcj.so.12 #{build_path}/lib/libgcj.so.12 } 
 
     %x{ mkdir -p #{profile} }
+    write_stdout "writing env vars script to #{profile}/pdftk.sh"
     %x{ curl --silent -L #{shell_script_url} -o - > #{profile}/pdftk.sh }	
   end
 
