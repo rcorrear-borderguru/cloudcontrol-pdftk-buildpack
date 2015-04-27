@@ -18,7 +18,7 @@ class Pdftk < BaseCustom
   end
 
   def profile
-    "#{HOME}/.profile.d"
+    "${HOME}/.profile.d"
   end
 
   def used?
@@ -37,7 +37,9 @@ class Pdftk < BaseCustom
 
     %x{ mkdir -p #{profile} }
     write_stdout "writing env vars script to #{profile}/pdftk.sh"
-    %x{ curl --silent -L #{shell_script_url} -o - > #{profile}/pdftk.sh }	
+    %x{ curl --silent -L #{shell_script_url} -o - > #{profile}/pdftk.sh }
+
+    write_stdout "complete compiling #{name}"
   end
 
   def cleanup!
