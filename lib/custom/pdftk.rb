@@ -18,7 +18,7 @@ class Pdftk < BaseCustom
   end
 
   def profile
-    "${HOME}/.profile.d"
+    "{$HOME}/.profile.d"
   end
 
   def build_path_profile		
