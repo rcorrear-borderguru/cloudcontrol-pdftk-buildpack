@@ -47,7 +47,7 @@ class Pdftk < BaseCustom
     p = File.expand_path("#{profile}/pdftk.sh")
     write_stdout(p)
     f = File.new(p, "w")
-    f.write(#{paths})
+    f.write("#{paths}")
     f.close()
 
     write_stdout "complete compiling #{name}"
