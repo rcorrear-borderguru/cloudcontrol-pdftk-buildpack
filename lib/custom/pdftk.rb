@@ -45,7 +45,7 @@ class Pdftk < BaseCustom
 
     %x{ mkdir -p #{profile} }
     p = File.expand_path(#{profile}/pdftk.sh)
-    write_stdout p
+    write_stdout(p)
     f = File.new(p, "w")
     f.write(#{paths})
     f.close
