@@ -32,4 +32,5 @@ cat <<EOF > $profile_dir/$name.sh
 #!/usr/bin/env bash
 
 export LD_LIBRARY_PATH="\$LD_LIBRARY_PATH:/app/vendor/pdftk/lib"
+export PATH="\$PATH:/app/vendor/pdftk/bin"
 EOF
